@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useDropdown from "./useDropdown.jsx";
+import { InputComponent } from "./InputComponent.jsx";
 
 export const Add = ({ books, setBooks }) => {
     const [title, setTitle] = useState("");
@@ -31,36 +32,23 @@ export const Add = ({ books, setBooks }) => {
     return (
         <div>
             <form>
-                <label htmlFor="title">
-                    Tytuł
-                    <input
-                        id="title"
-                        value={title}
-                        placeholder="Title"
-                        onChange={event => setTitle(event.target.value)}
-                    />
-                </label>
-                <label htmlFor="author">
-                    Autor
-                    <input
-                        id="author"
-                        value={author}
-                        placeholder="Autor"
-                        onChange={event => setAuthor(event.target.value)}
-                    />
-                </label>
+                <InputComponent
+                    label="Tytuł"
+                    state={title}
+                    setState={setTitle}
+                />
+                <InputComponent
+                    label="Autor"
+                    state={author}
+                    setState={setAuthor}
+                />
+                <InputComponent
+                    label="Publication Date"
+                    state={publicationDate}
+                    setState={setPublicationDate}
+                    type="number"
+                />
 
-                <label htmlFor="publicationDate">
-                    Publication Date
-                    <input
-                        id="publicationDate"
-                        value={publicationDate}
-                        placeholder="Publication Date"
-                        onChange={event =>
-                            setPublicationDate(event.target.value)
-                        }
-                    />
-                </label>
                 <br />
                 <GenreDropdown />
                 <br />
