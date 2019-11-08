@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <script src="
+        https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.js"></script>
+    </head>
+    <body>
+        <div>
+            <label for="first"
+                >a:
+                <input id="first" type="number" />
+            </label>
+            <label for="second"
+                >b:
+                <input id="second" type="number" />
+            </label>
+        </div>
+        <div>
+            <button id="add">Add(+)</button>
+            <button id="multiply">Multiply(*)</button>
+        </div>
+        <script>
+            const initialState = {
+                a: 0,
+                b: 0,
+                result: 0
+            };
+
+            reducer = (state = initialState, action) => {
+                switch (action.type) {
+                    case "NewAValue":
+                        return { ...state, a: action.newValue };
+                    case "NewBValue":
+                        return { ...state, b: action.newValue };
+                    case "Addition":
+                        return {
+                            ...state,
+                            result: Number(state.a) + Number(state.b)
+                        };
+                    case "Multiplicaton":
+                        return { ...state, result: state.a * state.b };
+                    default:
+                        console.log(`Unknown action ${action.type}`);
+                        return state;
+                }
+            };
+
+            const store = Redux.createStore(reducer);
+
+            const inputA = document.getElementById("first");
+            const inputB = document.getElementById("second");
+
+            const buttonAdd = document.getElementById("add");
+            const buttonMultiply = document.getElementById("multiply");
+
+            handleAUpdate = event => {
+                const updateAction = {
+                    type: "NewAValue",
+                    newValue: inputA.value
+                };
+
+                store.dispatch(updateAction);
+            };
+            handleBUpdate = event => {
+                const updateAction = {
+                    type: "NewBValue",
+                    newvalue: inputB.value
+                };
+
+                store.dispatch(updateAction);
+            };
+
+            handleAddition = event => {
+                const AddAction = {
+                    type: "Addition"
+                };
+
+                store.dispatch(AddAction);
+                console.log(`${store.getState().result}`);
+            };
+            handleMultiplication = event => {
+                const MultiplyAction = {
+                    type: "Multiplicaton"
+                };
+
+                store.dispatch(MultiplyAction);
+                console.log(`${store.getState().result}`);
+            };
+
+            inputA.addEventListener("change", handleAUpdate);
+            inputB.addEventListener("change", handleBUpdate);
+
+            buttonAdd.addEventListener("click", handleAddition);
+            buttonMultiply.addEventListener("click", handleMultiplication);
+        </script>
+    </body>
+</html>
